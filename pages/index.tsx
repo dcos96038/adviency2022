@@ -1,15 +1,30 @@
 import Image from "next/image";
 import {useContext} from "react";
+import {useForm, FormProvider, DefaultValues} from "react-hook-form";
 
 import {GiftAddModal} from "../components/GiftAddModal";
 import {GiftsContext} from "../context/giftsContext";
 import {UIContext} from "../context/uiContext";
-import {GiftsContextType} from "../types/gifts";
+import {GiftsContextType, IGift} from "../types/gifts";
 import {UIContextType} from "../types/ui";
 
+const formDefValues: DefaultValues<IGift> = {
+  name: "",
+  image: "",
+  receiver: "",
+  quantity: 0,
+};
+
 export default function Home() {
+  const methods = useForm<IGift>({
+    defaultValues: formDefValues,
+  });
   const {showModal, toggleModal} = useContext(UIContext) as UIContextType;
-  const {gifts, onDeleteGift, onDeleteAll} = useContext(GiftsContext) as GiftsContextType;
+  const {gifts, onDeleteGift, onDeleteAll, setCurrentGift} = useContext(
+    GiftsContext,
+  ) as GiftsContextType;
+
+  const {setValue} = methods;
 
   return (
     <div className="min-h-screen bg-rose-400 -z-50">
@@ -30,20 +45,36 @@ export default function Home() {
             <>
               <ul className="flex flex-col gap-2">
                 {gifts.map((gift, i) => (
-                  <li key={i} className="flex items-center justify-between gap-2">
+                  <li key={i} className="flex items-center justify-between gap-2 overflow-hidden">
                     <Image
                       alt={gift.name}
-                      className="w-auto"
+                      className="object-contain w-auto aspect-square"
                       height={40}
                       src={gift.image}
                       width={40}
                     />
-                    <span className="flex-1 font-bold">{`${gift.name} x${gift.quantity}`}</span>
+                    <div className="flex flex-col justify-center flex-1">
+                      <span className="flex-1 font-bold">{`${gift.name} x${gift.quantity}`}</span>
+                      <span className="flex-1 text-xs text-gray-700">{gift.receiver}</span>
+                    </div>
+                    <button
+                      className="px-2 py-1 text-white bg-red-900 border border-gray-900 rounded-md"
+                      onClick={() => {
+                        setValue("name", gift.name);
+                        setValue("image", gift.image);
+                        setValue("quantity", gift.quantity);
+                        setValue("receiver", gift.receiver);
+                        setCurrentGift(i);
+                        toggleModal(true);
+                      }}
+                    >
+                      E
+                    </button>
                     <button
                       className="px-2 py-1 text-white bg-red-900 border border-gray-900 rounded-md"
                       onClick={() => onDeleteGift(i)}
                     >
-                      ×
+                      X
                     </button>
                   </li>
                 ))}
@@ -59,7 +90,11 @@ export default function Home() {
             <span className="font-bold">No agregaste regalos</span>
           )}
         </div>
-        {showModal && <GiftAddModal />}
+        {showModal && (
+          <FormProvider {...methods}>
+            <GiftAddModal />
+          </FormProvider>
+        )}
       </div>
     </div>
   );
