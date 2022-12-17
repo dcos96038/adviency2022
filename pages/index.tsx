@@ -1,6 +1,7 @@
 import {useEffect} from "react";
 import {useForm, DefaultValues, useFieldArray} from "react-hook-form";
 
+import {listGifts} from "../api/gifts";
 import {AddGiftDialog} from "../components/AddGiftDialog";
 import GiftField from "../components/GiftField";
 import {IGift} from "../types/gifts";
@@ -39,9 +40,10 @@ export default function Home() {
   };
 
   useEffect(() => {
-    const localGifts = window.localStorage.getItem("gifts");
+    listGifts()
+      .then((data) => methods.setValue("gifts", data))
+      .catch((err) => console.log(err));
 
-    methods.setValue("gifts", localGifts !== null ? JSON.parse(localGifts) : []);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
