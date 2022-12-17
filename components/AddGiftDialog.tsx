@@ -5,6 +5,7 @@ import cx from "classnames";
 import React, {Fragment, useState} from "react";
 import {useForm} from "react-hook-form";
 
+import {giftList} from "../data/giftList";
 import {IGift} from "../types/gifts";
 
 interface Props {
@@ -13,12 +14,13 @@ interface Props {
 
 export const AddGiftDialog: React.FC<Props> = ({handleAddGift}) => {
   const [isOpen, setIsOpen] = useState(false);
-  const {register, handleSubmit, reset} = useForm<IGift>({
+  const {register, handleSubmit, reset, setValue} = useForm<IGift>({
     defaultValues: {
       name: "",
       quantity: 1,
       image: "",
       receiver: "",
+      price: 0,
     },
   });
 
@@ -26,6 +28,12 @@ export const AddGiftDialog: React.FC<Props> = ({handleAddGift}) => {
     handleAddGift({...values});
     reset();
     setIsOpen(false);
+  };
+
+  const getRandomGift = () => {
+    const randomIndex = Math.floor(Math.random() * giftList.length);
+
+    setValue("name", giftList[randomIndex]);
   };
 
   return (
@@ -80,20 +88,58 @@ export const AddGiftDialog: React.FC<Props> = ({handleAddGift}) => {
                 >
                   Regalo
                 </label>
+                <div className="flex flex-row gap-2">
+                  <input
+                    {...register("name")}
+                    autoComplete="gift"
+                    className={cx(
+                      "mt-1 block w-full rounded-md px-2 py-1",
+                      "text-sm text-gray-700 placeholder:text-gray-500 dark:text-gray-400 dark:placeholder:text-gray-300",
+                      "border border-gray-400 focus-visible:border-transparent dark:border-red-700 dark:bg-white",
+                      "focus:outline-none focus-visible:ring focus-visible:ring-red-500 focus-visible:ring-opacity-75",
+                    )}
+                    id="gift"
+                    placeholder="Nombre de regalo..."
+                    type="text"
+                  />
+                  <button
+                    className={cx(
+                      "mt-1 block w-full rounded-md px-2 py-1",
+                      "text-md text-white",
+                      "border border-gray-400 focus-visible:border-transparent dark:border-red-700 dark:bg-red-900",
+                      "focus:outline-none focus-visible:ring focus-visible:ring-red-500 focus-visible:ring-opacity-75",
+                    )}
+                    type="button"
+                    onClick={getRandomGift}
+                  >
+                    Regalo aleatorio
+                  </button>
+                </div>
+              </fieldset>
+
+              <fieldset>
+                <label
+                  className="font-medium text-gray-700 text-md dark:text-gray-900"
+                  htmlFor="price"
+                >
+                  Precio
+                </label>
                 <input
-                  {...register("name")}
-                  autoComplete="gift"
+                  {...register("price")}
+                  autoComplete="price"
                   className={cx(
                     "mt-1 block w-full rounded-md px-2 py-1",
                     "text-sm text-gray-700 placeholder:text-gray-500 dark:text-gray-400 dark:placeholder:text-gray-300",
                     "border border-gray-400 focus-visible:border-transparent dark:border-red-700 dark:bg-white",
                     "focus:outline-none focus-visible:ring focus-visible:ring-red-500 focus-visible:ring-opacity-75",
                   )}
-                  id="gift"
-                  placeholder="Nombre de regalo..."
-                  type="text"
+                  id="price"
+                  placeholder="Precio del regalo..."
+                  step="0.01"
+                  type="number"
                 />
               </fieldset>
+
               <fieldset>
                 <label
                   className="font-medium text-gray-700 text-md dark:text-gray-900"
@@ -133,7 +179,7 @@ export const AddGiftDialog: React.FC<Props> = ({handleAddGift}) => {
                   )}
                   id="image"
                   placeholder="Link de imagen..."
-                  type="text"
+                  type="url"
                 />
               </fieldset>
               <fieldset>

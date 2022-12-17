@@ -25,7 +25,12 @@ const GiftField: React.FC<Props> = ({field: gift, handleUpdateGift, index, handl
         width={40}
       />
       <div className="flex flex-col justify-center flex-1">
-        <span className="flex-1 font-bold">{`${gift.name} x${gift.quantity}`}</span>
+        <span className="flex-1 font-bold">{`${gift.name} x${gift.quantity} - ${Number(
+          gift.price,
+        ).toLocaleString("en-US", {
+          style: "currency",
+          currency: "USD",
+        })}`}</span>
         <span className="flex-1 text-xs text-gray-700">{gift.receiver}</span>
       </div>
       <EditGiftDialog

@@ -20,6 +20,7 @@ export const EditGiftDialog: React.FC<Props> = ({field, handleUpdateGift}) => {
       quantity: field.quantity,
       image: field.image,
       receiver: field.receiver,
+      price: field.price,
     },
   });
 
@@ -94,6 +95,30 @@ export const EditGiftDialog: React.FC<Props> = ({field, handleUpdateGift}) => {
                   type="text"
                 />
               </fieldset>
+
+              <fieldset>
+                <label
+                  className="font-medium text-gray-700 text-md dark:text-gray-900"
+                  htmlFor="price"
+                >
+                  Precio
+                </label>
+                <input
+                  {...register("price")}
+                  autoComplete="price"
+                  className={cx(
+                    "mt-1 block w-full rounded-md px-2 py-1",
+                    "text-sm text-gray-700 placeholder:text-gray-500 dark:text-gray-400 dark:placeholder:text-gray-300",
+                    "border border-gray-400 focus-visible:border-transparent dark:border-red-700 dark:bg-white",
+                    "focus:outline-none focus-visible:ring focus-visible:ring-red-500 focus-visible:ring-opacity-75",
+                  )}
+                  id="price"
+                  placeholder="Precio del regalo..."
+                  step="0.01"
+                  type="number"
+                />
+              </fieldset>
+
               <fieldset>
                 <label
                   className="font-medium text-gray-700 text-md dark:text-gray-900"
@@ -103,7 +128,7 @@ export const EditGiftDialog: React.FC<Props> = ({field, handleUpdateGift}) => {
                 </label>
                 <input
                   {...register("receiver")}
-                  autoComplete="family-name"
+                  autoComplete="receiver"
                   className={cx(
                     "mt-1 block w-full rounded-md px-2 py-1",
                     "text-sm text-gray-700 placeholder:text-gray-500 dark:text-gray-400 dark:placeholder:text-gray-300",
@@ -133,7 +158,7 @@ export const EditGiftDialog: React.FC<Props> = ({field, handleUpdateGift}) => {
                   )}
                   id="image"
                   placeholder="Link de imagen..."
-                  type="text"
+                  type="url"
                 />
               </fieldset>
               <fieldset>
