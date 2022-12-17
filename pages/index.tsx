@@ -1,9 +1,8 @@
-import Image from "next/image";
 import {useEffect} from "react";
 import {useForm, DefaultValues, useFieldArray} from "react-hook-form";
 
 import {AddGiftDialog} from "../components/AddGiftDialog";
-import {EditGiftDialog} from "../components/EditGiftDialog";
+import GiftField from "../components/GiftField";
 import {IGift} from "../types/gifts";
 
 const formDefValues: DefaultValues<{gifts: IGift[]}> = {
@@ -43,6 +42,7 @@ export default function Home() {
     const localGifts = window.localStorage.getItem("gifts");
 
     methods.setValue("gifts", localGifts !== null ? JSON.parse(localGifts) : []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -55,29 +55,13 @@ export default function Home() {
             <>
               <ul className="flex flex-col gap-2">
                 {fields.map((gift, i) => (
-                  <li key={i} className="flex items-center justify-between gap-2 overflow-hidden">
-                    <Image
-                      alt={gift.name}
-                      className="object-contain w-auto aspect-square"
-                      height={40}
-                      src={gift.image}
-                      width={40}
-                    />
-                    <div className="flex flex-col justify-center flex-1">
-                      <span className="flex-1 font-bold">{`${gift.name} x${gift.quantity}`}</span>
-                      <span className="flex-1 text-xs text-gray-700">{gift.receiver}</span>
-                    </div>
-                    <EditGiftDialog
-                      field={gift}
-                      handleUpdateGift={(values: IGift) => handleUpdateGift(values, i)}
-                    />
-                    <button
-                      className="px-2 py-1 text-white bg-red-900 border border-gray-900 rounded-md"
-                      onClick={() => handleDeleteGift(i)}
-                    >
-                      X
-                    </button>
-                  </li>
+                  <GiftField
+                    key={gift.id}
+                    field={gift}
+                    handleDeleteGift={handleDeleteGift}
+                    handleUpdateGift={handleUpdateGift}
+                    index={i}
+                  />
                 ))}
               </ul>
               <button
