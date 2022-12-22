@@ -1,9 +1,10 @@
-import React, {Fragment, useState} from "react";
+import React, {Fragment, useRef, useState} from "react";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import {Transition} from "@headlessui/react";
 import cx from "classnames";
 import {Cross1Icon} from "@radix-ui/react-icons";
 import Image from "next/image";
+import jsPDF from "jspdf";
 
 import {IGift} from "../types/gifts";
 
@@ -13,6 +14,15 @@ interface Props {
 
 export const PreviewDialog: React.FC<Props> = ({gifts}) => {
   const [isOpen, setIsOpen] = useState(false);
+  const previewList = useRef(null);
+
+  const handlePrintPreview = () => {
+    const preview = new jsPDF("portrait", "pt", "a4", true);
+
+    preview.html(previewList.current!, {margin: 50}).then(() => {
+      preview.save("lista-regalos.pdf");
+    });
+  };
 
   return (
     <DialogPrimitive.Root open={isOpen} onOpenChange={setIsOpen}>
@@ -59,7 +69,7 @@ export const PreviewDialog: React.FC<Props> = ({gifts}) => {
               <DialogPrimitive.Description className="mt-2 text-sm font-normal text-gray-700 dark:text-gray-400">
                 Esta es tu lista de regalos actual.
               </DialogPrimitive.Description>
-              <ul className="flex flex-col gap-3 mt-4">
+              <ul ref={previewList} className="flex flex-col gap-3 mt-4">
                 {gifts.map((gift, i) => (
                   <li key={i} className="flex items-center gap-3">
                     <Image
@@ -88,6 +98,7 @@ export const PreviewDialog: React.FC<Props> = ({gifts}) => {
                     "border border-transparent",
                     "focus:outline-none focus-visible:ring focus-visible:ring-red-500 focus-visible:ring-opacity-75",
                   )}
+                  onClick={handlePrintPreview}
                 >
                   Imprimir
                 </DialogPrimitive.Close>
