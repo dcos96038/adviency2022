@@ -4,6 +4,7 @@ import {useForm, DefaultValues, useFieldArray} from "react-hook-form";
 import {listGifts} from "../api/gifts";
 import {AddGiftDialog} from "../components/AddGiftDialog";
 import GiftField from "../components/GiftField";
+import {PreviewDialog} from "../components/PreviewDialog";
 import {IGift} from "../types/gifts";
 
 const formDefValues: DefaultValues<{gifts: IGift[]}> = {
@@ -48,18 +49,19 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-red-900 -z-50">
+    <div className="min-h-screen sm:bg-red-900 -z-50">
       <div className="container flex items-center justify-center min-h-screen mx-auto">
-        <div className="flex flex-col gap-6 px-4 py-6 bg-white border-2 rounded-md w-96 border-rose-900">
+        <div className="flex flex-col gap-6 px-4 py-6 bg-white rounded-md sm:border-2 max-w-7xl sm:border-rose-900">
           <h1 className="text-4xl">Adviency Gifts</h1>
           <AddGiftDialog handleAddGift={handleAddGift} />
           {fields.length > 0 ? (
             <>
-              <ul className="flex flex-col gap-2">
+              <ul className="flex flex-col gap-2 p-4 border-2 rounded-md border-rose-900 sm:border-none">
                 {fields.map((gift, i) => (
                   <GiftField
                     key={gift.id}
                     field={gift}
+                    handleAddGift={handleAddGift}
                     handleDeleteGift={handleDeleteGift}
                     handleUpdateGift={handleUpdateGift}
                     index={i}
@@ -72,6 +74,7 @@ export default function Home() {
               >
                 Borrar todo
               </button>
+              <PreviewDialog gifts={methods.getValues().gifts} />
             </>
           ) : (
             <span className="font-bold">No agregaste regalos</span>
