@@ -10,7 +10,7 @@ https://twitter.com/goncy/status/1597581725382721538
 
 ## About the app
 
-NextJS app for adviency challenge by @goncy (https://twitter.com/goncy)
+NextJS app for adviency challenge by [@goncy](https://twitter.com/goncy)
 
 ## Screenshots
 
@@ -23,11 +23,11 @@ NextJS app for adviency challenge by @goncy (https://twitter.com/goncy)
 
 ## Technologies
 
-- Typescript
-- React
-- NextJS
-- RadixUI
-- Tailwind
-- Classnames
-- React Hook Form
-- JsPDF
+- [Typescript](https://www.typescriptlang.org/docs/)
+- [ReactJS](https://es.reactjs.org/)
+- [NextJS](https://nextjs.org/)
+- [RadixUI](https://www.radix-ui.com/)
+- [Tailwind](https://tailwindcss.com/)
+- [Classnames](https://github.com/JedWatson/classnames)
+- [React Hook Form](https://react-hook-form.com/)
+- [JsPDF](https://github.com/parallax/jsPDF)
