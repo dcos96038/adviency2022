@@ -12,6 +12,8 @@ https://twitter.com/goncy/status/1597581725382721538
 
 NextJS app for adviency challenge by [@goncy](https://twitter.com/goncy)
 
+Deploy: [Adviency 2022](https://adviency2022-nine.vercel.app/)
+
 ## Screenshots
 
 ![image](https://user-images.githubusercontent.com/56701155/209440810-421450a1-53ce-4d00-ac21-674bce2f60a8.png)
