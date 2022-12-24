@@ -1,34 +1,33 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Adviency 2022 Challenge
 
-## Getting Started
+https://twitter.com/goncy/status/1597581725382721538
 
-First, run the development server:
+## Table of Content:
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+- [About The App](#about-the-app)
+- [Screenshots](#screenshots)
+- [Technologies](#technologies)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## About the app
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+NextJS app for adviency challenge by @goncy (https://twitter.com/goncy)
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+## Screenshots
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+![image](https://user-images.githubusercontent.com/56701155/209440810-421450a1-53ce-4d00-ac21-674bce2f60a8.png)
+![image](https://user-images.githubusercontent.com/56701155/209440818-efd7b99b-f64d-4a93-8e78-692794ef8d86.png)
+![image](https://user-images.githubusercontent.com/56701155/209440823-3298d5c6-ccbb-4a16-8e3f-13da7c3b4ab3.png)
+![image](https://user-images.githubusercontent.com/56701155/209440830-1ecdc148-293c-4c05-9d8e-73781b23eb9f.png)
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Technologies
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- Typescript
+- React
+- NextJS
+- RadixUI
+- Tailwind
+- Classnames
+- React Hook Form
+- JsPDF
