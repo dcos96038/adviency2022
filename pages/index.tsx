@@ -1,6 +1,7 @@
 import {SpeakerLoudIcon, SpeakerOffIcon} from "@radix-ui/react-icons";
 import {useEffect, useMemo, useRef, useState} from "react";
 import {useForm, DefaultValues, useFieldArray, useWatch} from "react-hook-form";
+import {toast} from "react-toastify";
 
 import {listGifts} from "../api/gifts";
 import {AddGiftDialog} from "../components/AddGiftDialog";
@@ -34,21 +35,25 @@ export default function Home() {
 
   const handleDeleteGift = (index: number) => {
     remove(index);
+    toast.warning("Se eliminó el regalo!");
   };
 
   const handleDeleteAllGifts = () => {
     methods.setValue("gifts", []);
     window.localStorage.removeItem("gifts");
+    toast.warning("Se eliminaron los regalos!");
   };
 
   const handleAddGift = (values: IGift) => {
     append({...values});
     window.localStorage.setItem("gifts", JSON.stringify(methods.getValues().gifts));
+    toast.success("Se agregó el regalo!");
   };
 
   const handleUpdateGift = (values: IGift, index: number) => {
     update(index, {...values});
     window.localStorage.setItem("gifts", JSON.stringify(methods.getValues().gifts));
+    toast.success("Se actualizó el regalo!");
   };
 
   const handleAudioClick = () => {
@@ -74,10 +79,14 @@ export default function Home() {
     listGifts()
       .then((data) => {
         methods.setValue("gifts", data);
+        toast.success("Regalos cargados!");
         setLoading(false);
       })
-      // eslint-disable-next-line no-console
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        // eslint-disable-next-line no-console
+        console.log(err);
+        toast.error("Error al cargar regalos!");
+      });
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

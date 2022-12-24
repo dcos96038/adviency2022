@@ -5,6 +5,7 @@ import cx from "classnames";
 import {Cross1Icon} from "@radix-ui/react-icons";
 import Image from "next/image";
 import jsPDF from "jspdf";
+import {toast} from "react-toastify";
 
 import {IGift} from "../types/gifts";
 
@@ -21,6 +22,7 @@ export const PreviewDialog: React.FC<Props> = ({gifts}) => {
 
     preview.html(previewList.current!, {margin: 50}).then(() => {
       preview.save("lista-regalos.pdf");
+      toast.success("Tu descarga comenzó!");
     });
   };
 
