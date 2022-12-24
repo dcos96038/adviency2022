@@ -83,9 +83,10 @@ export default function Home() {
         setLoading(false);
       })
       .catch((err) => {
-        // eslint-disable-next-line no-console
-        console.log(err);
-        toast.error("Error al cargar regalos!");
+        if (err.message !== "No hay datos") {
+          toast.error("Error al cargar regalos!");
+        }
+        setLoading(false);
       });
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
