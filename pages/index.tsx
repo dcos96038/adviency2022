@@ -5,6 +5,7 @@ import {useForm, DefaultValues, useFieldArray, useWatch} from "react-hook-form";
 import {listGifts} from "../api/gifts";
 import {AddGiftDialog} from "../components/AddGiftDialog";
 import GiftField from "../components/GiftField";
+import {Loader} from "../components/Loader";
 import {PreviewDialog} from "../components/PreviewDialog";
 import {IGift} from "../types/gifts";
 
@@ -17,6 +18,7 @@ export default function Home() {
     defaultValues: formDefValues,
   });
   const [isPlaying, setIsPlaying] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const audioRef = useRef<HTMLAudioElement>(null);
 
@@ -70,7 +72,10 @@ export default function Home() {
 
   useEffect(() => {
     listGifts()
-      .then((data) => methods.setValue("gifts", data))
+      .then((data) => {
+        methods.setValue("gifts", data);
+        setLoading(false);
+      })
       // eslint-disable-next-line no-console
       .catch((err) => console.log(err));
 
@@ -88,7 +93,7 @@ export default function Home() {
       <div className="min-h-screen sm:bg-red-900 -z-50">
         <div className="container flex items-center justify-center min-h-screen mx-auto">
           <div className="flex flex-col gap-4 px-4 py-6 bg-white rounded-md sm:border-2 max-w-7xl sm:border-rose-900">
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between gap-4">
               <h1 className="text-4xl" onClick={handleAudioClick}>
                 Adviency Gifts
               </h1>
@@ -101,7 +106,11 @@ export default function Home() {
               </button>
             </div>
             <AddGiftDialog handleAddGift={handleAddGift} />
-            {fields.length > 0 ? (
+            {loading ? (
+              <div className="flex items-center justify-center">
+                <Loader />
+              </div>
+            ) : fields.length > 0 ? (
               <>
                 <ul className="flex flex-col gap-2 p-4 border-2 rounded-md sm:border-none border-rose-900">
                   {fields.map((gift, i) => (
